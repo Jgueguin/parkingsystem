@@ -56,4 +56,31 @@ public class ParkingSpotDAO {
         }
     }
 
+
+    //added get ticket
+    public boolean getParking(ParkingSpot parkingSpot){
+        //get ticket
+        Connection con = null;
+        try {
+            con = dataBaseConfig.getConnection();
+
+
+            PreparedStatement ps = con.prepareStatement(DBConstants.GET_TICKET);
+            ps.setBoolean(1, parkingSpot.isAvailable());
+            ps.setInt(2, parkingSpot.getId());
+
+            int updateRowCount = ps.executeUpdate();
+            dataBaseConfig.closePreparedStatement(ps);
+            return (updateRowCount == 1);
+        }catch (Exception ex){
+            logger.error("Error getting ticket info",ex);
+            return false;
+        }finally {
+            dataBaseConfig.closeConnection(con);
+        }
+    }
+
+
+
+
 }
