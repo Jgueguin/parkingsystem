@@ -12,7 +12,9 @@ public class InteractiveShell {
 
     public static void loadInterface(){
         logger.info("App initialized!!!");
+        System.out.println();
         System.out.println("Welcome to Parking System!");
+        System.out.println();
 
         boolean continueApp = true;
         InputReaderUtil inputReaderUtil = new InputReaderUtil();
@@ -47,6 +49,7 @@ public class InteractiveShell {
         System.out.println("1 New Vehicle Entering - Allocate Parking Space");
         System.out.println("2 Vehicle Exiting - Generate Ticket Price");
         System.out.println("3 Shutdown System");
+        System.out.println();
     }
 
 }

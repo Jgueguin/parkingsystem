@@ -48,7 +48,6 @@ public class FareCalculatorServiceTest {
         ticket.setParkingSpot(parkingSpot);
         fareCalculatorService.calculateFare(ticket);
 
-        System.out.println("calculateFareCar");
 
         assertEquals((nb) * Fare.CAR_RATE_PER_HOUR,ticket.getPrice());
     }
@@ -68,8 +67,6 @@ public class FareCalculatorServiceTest {
         ticket.setParkingSpot(parkingSpot);
         fareCalculatorService.calculateFare(ticket);
 
-        System.out.println("calculateFareBike");
-
         assertEquals(
                 (number)* Fare.BIKE_RATE_PER_HOUR,
                 ticket.getPrice());
@@ -86,8 +83,6 @@ public class FareCalculatorServiceTest {
         ticket.setOutTime(outTime);
         ticket.setParkingSpot(parkingSpot);
 
-        System.out.println("calculateFareUnknownType");
-
         assertThrows(NullPointerException.class, () -> fareCalculatorService.calculateFare(ticket));
     }
 
@@ -101,8 +96,6 @@ public class FareCalculatorServiceTest {
         ticket.setInTime(inTime);
         ticket.setOutTime(outTime);
         ticket.setParkingSpot(parkingSpot);
-
-        System.out.println("calculateFareBikeWithFutureInTime");
 
         assertThrows(IllegalArgumentException.class, () -> fareCalculatorService.calculateFare(ticket));
     }
@@ -119,7 +112,6 @@ public class FareCalculatorServiceTest {
         ticket.setParkingSpot(parkingSpot);
         fareCalculatorService.calculateFare(ticket);
 
-        System.out.println("calculateFareBikeWithLessThanOneHourParkingTime");
 
         assertEquals(((0.75) * Fare.BIKE_RATE_PER_HOUR), ticket.getPrice() );
     }
@@ -136,8 +128,6 @@ public class FareCalculatorServiceTest {
         ticket.setParkingSpot(parkingSpot);
         fareCalculatorService.calculateFare(ticket);
 
-        System.out.println("calculateFareCarWithLessThanOneHourParkingTime");
-
         assertEquals( ((0.75) * Fare.CAR_RATE_PER_HOUR) , ticket.getPrice());
     }
 
@@ -153,7 +143,6 @@ public class FareCalculatorServiceTest {
         ticket.setParkingSpot(parkingSpot);
         fareCalculatorService.calculateFare(ticket);
 
-        System.out.println("calculateFareCarWithMoreThanADayParkingTime");
 
         assertEquals( ((24) * Fare.CAR_RATE_PER_HOUR) , ticket.getPrice());
     }
@@ -170,7 +159,6 @@ public class FareCalculatorServiceTest {
         ticket.setParkingSpot(parkingSpot);
         fareCalculatorService.calculateFare(ticket);
 
-        System.out.println("calculateFareBikeWithMoreThanADayParkingTime");
 
         assertEquals( ((24) * Fare.BIKE_RATE_PER_HOUR) , ticket.getPrice());
     }
@@ -188,7 +176,6 @@ public class FareCalculatorServiceTest {
         ticket.setParkingSpot(parkingSpot);
         fareCalculatorService.calculateFare(ticket);
 
-        System.out.println("calculateFareCarWithLessThan30minutesParkingTime");
 
         assertEquals(  0  , ticket.getPrice());
     }
@@ -205,7 +192,6 @@ public class FareCalculatorServiceTest {
         ticket.setParkingSpot(parkingSpot);
         fareCalculatorService.calculateFare(ticket);
 
-        System.out.println("calculateFareBikeWithLessThan30minutesParkingTime");
 
         assertEquals( 0  , ticket.getPrice());
     }
