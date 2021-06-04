@@ -11,6 +11,10 @@ public class Ticket {
     private Date inTime;
     private Date outTime;
 
+    // Recurrent User
+    private  Boolean fidelity = false;
+
+
     public int getId() {
         return id;
     }
@@ -58,4 +62,18 @@ public class Ticket {
     public void setOutTime(Date outTime) {
         this.outTime = outTime;
     }
+
+// Recurrent User
+    public Date getFidelity() {
+        return fidelity;
+    }
+
+    public void setFidelity(Boolean fidelity) {
+        this.fidelity = fidelity;
+    }
+
+    
+
+
+
 }

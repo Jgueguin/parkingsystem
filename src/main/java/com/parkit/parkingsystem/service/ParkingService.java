@@ -206,6 +206,9 @@ public class ParkingService {
 
                 int id = ticketDAO.getTicket(vehicleRegNumber).getId();
 
+                // comment récupérer l'id suivant
+
+
                 try{
                     ticket.setId(id+1);
 
