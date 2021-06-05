@@ -64,7 +64,7 @@ public class Ticket {
     }
 
 // Recurrent User
-    public Date getFidelity() {
+    public Boolean getFidelity() {
         return fidelity;
     }
 
@@ -72,7 +72,7 @@ public class Ticket {
         this.fidelity = fidelity;
     }
 
-    
+
 
 
 
