@@ -109,14 +109,7 @@ public class TicketDAO {
 
                 ticket = new Ticket();
                 ticket.setVehicleRegNumber(vehicleRegNumber);
-
-                System.out.print(" TicketDAO - get Ticket 2 - Set Id : ");
-
                 ticket.setId(rs.getInt(1) );
-
-                System.out.println(
-                        rs.getInt(1)
-                );
 
             }
             dataBaseConfig.closeResultSet(rs);

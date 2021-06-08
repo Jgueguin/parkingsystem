@@ -156,6 +156,63 @@ public class ParkingService {
         try{
             String vehicleRegNumber = getVehichleRegNumber();
             Ticket ticket = ticketDAO.getTicket(vehicleRegNumber);
+            Ticket ticket2 = ticketDAO.getTicket2(vehicleRegNumber);
+
+            if (ticket.getOutTime() != null // il y a un ticket déjà généré avec le véhicule
+                )
+                {
+                    System.out.println("Ce véhicule est déjà venu");
+
+                    try {
+
+                        int id = ticketDAO.getTicket2(vehicleRegNumber).getId();
+                        ticket.setId(id);
+
+                        ticket.setFidelity(true);
+
+                        Date outTime = new Date();
+                        ticket.setOutTime(outTime);
+                        fareCalculatorService.calculateFare(ticket);
+                        if(ticketDAO.updateTicket(ticket)) {
+                            ParkingSpot parkingSpot = ticket.getParkingSpot();
+                            parkingSpot.setAvailable(true);
+                            parkingSpotDAO.updateParking(parkingSpot);
+                            System.out.println("Please pay the parking fare:" + ticket.getPrice());
+                            System.out.println("Recorded out-time for vehicle number:" + ticket.getVehicleRegNumber() + " is:" + outTime);
+                            System.out.println();
+                        }else{
+                            System.out.println("Unable to update ticket information. Error occurred");
+                        }
+                    }
+                    catch (Exception e){
+                        System.out.println("Exception : ");
+                        System.out.println(e);
+                    }
+                }
+
+                else{
+                    System.out.println("premiere venue du véhicule");
+
+                    Date outTime = new Date();
+                    ticket.setOutTime(outTime);
+                    fareCalculatorService.calculateFare(ticket);
+                    if(ticketDAO.updateTicket(ticket)) {
+                        ParkingSpot parkingSpot = ticket.getParkingSpot();
+                        parkingSpot.setAvailable(true);
+                        parkingSpotDAO.updateParking(parkingSpot);
+                        System.out.println("Please pay the parking fare:" + ticket.getPrice());
+                        System.out.println("Recorded out-time for vehicle number:" + ticket.getVehicleRegNumber() + " is:" + outTime);
+                        System.out.println();
+                    }else{
+                        System.out.println("Unable to update ticket information. Error occurred");
+                    }
+
+
+                }
+
+
+
+        /*
 
             System.out.println("" +
                     "Process Exiting Vehicle - get Ticket --- >"+
@@ -163,13 +220,6 @@ public class ParkingService {
                             ticketDAO.getTicket(vehicleRegNumber).getVehicleRegNumber()+ "----> "+
                             ticketDAO.getTicket(vehicleRegNumber).getOutTime()
             );
-
-            System.out.println("" +
-                    "Process Exiting Vehicle - get Ticket 2 --- >"+
-                    ticketDAO.getTicket2(vehicleRegNumber).getId()+" ---> "+
-                    ticketDAO.getTicket2(vehicleRegNumber).getOutTime()
-            );
-
 
             // Si le champ de temps de sortie est nulle
             // alors on peut faire sortir le véhicule est updaté le ticket
@@ -217,23 +267,18 @@ public class ParkingService {
                                     ticketDAO.getTicket(vehicleRegNumber).getOutTime()
                     );
 
-                    int id = ticketDAO.getTicket(vehicleRegNumber).getId();
+                    int id = ticketDAO.getTicket2(vehicleRegNumber).getId();
 
-                    System.out.println( "id ticket actuel "+id
+                    System.out.println( "nouvel id  "+id
                     );
 
 
-
-                    // comment récupérer l'id  d'un ticket avec un numero de vehicule donné et un outTime = null ???
-
-                    System.out.println("Parking Service");
-                    System.out.println(" TicketDAO getticket 2 "+
-                            ticketDAO.getTicket2(vehicleRegNumber)
-                    );
 
                     Date outTime = new Date();
 
+                    ticket.setId(id);
                     ticket.setOutTime(outTime);
+
                     fareCalculatorService.calculateFare(ticket);
                     if(ticketDAO.updateTicket(ticket)) {
                         ParkingSpot parkingSpot = ticket.getParkingSpot();
@@ -247,7 +292,7 @@ public class ParkingService {
                         System.out.println("Unable to update ticket information. Error occurred");
                     }
             }
-
+        */
         }catch(Exception e){
             logger.error("Unable to process exiting vehicle",e);
         }
