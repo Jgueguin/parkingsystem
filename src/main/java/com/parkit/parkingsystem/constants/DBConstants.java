@@ -11,8 +11,6 @@ public class DBConstants {
 
     // public static final String Number_TICKET = "select max(t.ID) from ticket t,parking p where t.VEHICLE_REG_NUMBER=? order by t.ID";
 
-    public static final String NUMBER_TICKET = "select max(t.ID) from ticket t where t.VEHICLE_REG_NUMBER=?";
-
     public static final String GET_TICKET2 = "select min(t.ID) from ticket t where t.VEHICLE_REG_NUMBER=? and t.OUT_TIME = null";
 
 

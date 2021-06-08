@@ -55,7 +55,7 @@ public class TicketDAO {
                 ticket.setParkingSpot(parkingSpot);
                 ticket.setId(rs.getInt(2));
 
-                System.out.println("get Ticket");
+                System.out.print("TicketDAO - get Ticket : ");
                 System.out.println(rs.getInt(2));
 
                 ticket.setVehicleRegNumber(vehicleRegNumber);
@@ -78,6 +78,7 @@ public class TicketDAO {
         try {
             con = dataBaseConfig.getConnection();
             PreparedStatement ps = con.prepareStatement(DBConstants.UPDATE_TICKET);
+
             ps.setDouble(1, ticket.getPrice());
             ps.setTimestamp(2, new Timestamp(ticket.getOutTime().getTime()));
             ps.setInt(3,ticket.getId());
@@ -107,25 +108,15 @@ public class TicketDAO {
             if(rs.next()) {
 
                 ticket = new Ticket();
-
-                System.out.println(" Set Id : ");
-
-                ticket.setId(rs.getInt(2) );
-
-                System.out.println("column index : " +
-                        rs.getInt(2)
-                );
-
-
                 ticket.setVehicleRegNumber(vehicleRegNumber);
 
+                System.out.print(" TicketDAO - get Ticket 2 - Set Id : ");
 
+                ticket.setId(rs.getInt(1) );
 
-
-
-
-
-
+                System.out.println(
+                        rs.getInt(1)
+                );
 
             }
             dataBaseConfig.closeResultSet(rs);
