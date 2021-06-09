@@ -72,8 +72,4 @@ public class Ticket {
         this.fidelity = fidelity;
     }
 
-
-
-
-
 }

@@ -9,6 +9,10 @@ import com.parkit.parkingsystem.model.ParkingSpot;
 import com.parkit.parkingsystem.model.Ticket;
 import com.parkit.parkingsystem.service.ParkingService;
 import com.parkit.parkingsystem.util.InputReaderUtil;
+
+import com.parkit.parkingsystem.dao.TicketDAO;
+
+
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -21,6 +25,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import com.parkit.parkingsystem.model.Ticket;
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
@@ -30,6 +35,7 @@ import java.util.Date;
 import java.util.Date;
 import java.util.Locale;
 
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -40,10 +46,12 @@ public class ParkingDataBaseIT {
     private static TicketDAO ticketDAO;
     private static DataBasePrepareService dataBasePrepareService;
 
-    private static Ticket ticket; //added
+
+    private Ticket ticket;
 
     @Mock
     private static InputReaderUtil inputReaderUtil;
+    private static TicketDAO ticketDaoMock;
 
     @BeforeAll
     private static void setUp() throws Exception{
@@ -59,6 +67,9 @@ public class ParkingDataBaseIT {
         when(inputReaderUtil.readSelection()).thenReturn(1);
         when(inputReaderUtil.readVehicleRegistrationNumber()).thenReturn("ABCDEF");
         dataBasePrepareService.clearDataBaseEntries();
+
+        // when (ticketDaoMock.getTicket(ticket.getVehicleRegNumber())).thenReturn(ticket);
+
     }
 
     @AfterAll
@@ -66,31 +77,12 @@ public class ParkingDataBaseIT {
 
     }
 
-    //@Test
+   // @Test
     public void testParkingACar(){
-
-        System.out.println(" >>>>>>>>>      testParkingACar");
 
         ParkingService parkingService = new ParkingService(inputReaderUtil, parkingSpotDAO, ticketDAO);
         parkingService.processIncomingVehicle();
         //TODO: check that a ticket is actually saved in DB and Parking table is updated with availability
-
-        System.out.println(" ");
-        System.out.println("Reading DB");
-
-        System.out.println("Get Vehicle Info in Db : ");
-        System.out.println(
-                ticketDAO.getTicket("ABCDEF").getVehicleRegNumber()
-        );
-        System.out.println(
-                ticketDAO.getTicket("ABCDEF").getParkingSpot().getParkingType()
-        );
-
-        System.out.println(
-                ticketDAO.getTicket("ABCDEF").getParkingSpot().isAvailable()
-        );
-
-        System.out.println(" >>>>>>>>> ");
 
         //Assertions
         // Is car "ABCDEF" saved in DB
@@ -112,41 +104,14 @@ public class ParkingDataBaseIT {
         String pattern = "yyyy-MM-dd HH:mm:ss.0";
         SimpleDateFormat inTime = new SimpleDateFormat(pattern);
         String inDate = inTime.format(new Date());
+        Date outTime = new Date();
         System.out.println(inDate);
 
-        Date outTime = new Date();
-        System.out.println("Test Parking Lot Exit");
-
         testParkingACar();
-        System.out.println("test");
-
         ParkingService parkingService = new ParkingService(inputReaderUtil, parkingSpotDAO, ticketDAO);
         parkingService.processExitingVehicle();
 
         //TODO: check that the fare generated and out time are populated correctly in the database
-
-        System.out.println(" ");
-        System.out.println(
-                "Database InTime :"+
-                ticketDAO.getTicket("ABCDEF").getInTime()
-        );
-        System.out.println(
-                "Database outTime :"+
-                ticketDAO.getTicket("ABCDEF").getOutTime()
-        );
-        System.out.println(
-                " ");
-
-        System.out.println(
-                "inDate :"+
-                inDate
-        );
-        System.out.println(
-                outTime
-        );
-
-        System.out.println(" ");
-        System.out.println(" >>>>>>>>>");
 
         // Assertions
         assertNotNull(
@@ -157,12 +122,87 @@ public class ParkingDataBaseIT {
         );
 
         assertEquals(
-                inDate,
-                ticketDAO.getTicket("ABCDEF").getInTime()
+                inDate.toString(),
+                ticketDAO.getTicket("ABCDEF").getInTime().toString()
                 );
 
-
+        assertEquals(
+                false,
+                ParkingService.getFidelity()
+        );
 
     }
+
+    @Test
+    public void testRecurrentUser(){
+
+        ParkingService parkingService = new ParkingService(inputReaderUtil, parkingSpotDAO, ticketDAO);
+
+        Date inTime = new Date();
+        inTime.setTime( System.currentTimeMillis() - ( 2* 60 * 60 * 1000) );
+        Date outTime = new Date();
+
+        Ticket ticket = new Ticket();
+
+
+        System.out.println("");
+        System.out.println("Test Recurent User");
+        System.out.println("");
+
+        ticket.setInTime(inTime);
+        ticket.setOutTime(outTime);
+
+
+
+        //ticket.getParkingSpot().getId();
+        //ticket.setParkingSpot();
+/*
+        ticket.getVehicleRegNumber();
+        ticket.getPrice();
+        ticket.getInTime().getTime();
+        ticket.getOutTime().getTime();
+*/
+
+
+
+        System.out.println(inTime + " // "+outTime);
+
+
+       // ticketDAO.saveTicket(ticket);
+
+
+
+
+
+
+
+
+
+
+
+
+
+        testParkingACar();
+
+        parkingService.processExitingVehicle();
+
+        testParkingACar();
+        parkingService.processExitingVehicle();
+
+        //TODO: check that the fare generated and out time are populated correctly in the database
+
+        // Assertions
+
+        assertEquals(
+                true,
+                ParkingService.getFidelity()
+        );
+
+
+
+        }
+
+
+
 
 }
