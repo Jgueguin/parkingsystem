@@ -138,49 +138,9 @@ public class ParkingDataBaseIT {
 
         ParkingService parkingService = new ParkingService(inputReaderUtil, parkingSpotDAO, ticketDAO);
 
-        Date inTime = new Date();
-        inTime.setTime( System.currentTimeMillis() - ( 2* 60 * 60 * 1000) );
-        Date outTime = new Date();
-
-        Ticket ticket = new Ticket();
-
-
         System.out.println("");
         System.out.println("Test Recurent User");
         System.out.println("");
-
-        ticket.setInTime(inTime);
-        ticket.setOutTime(outTime);
-
-
-
-        //ticket.getParkingSpot().getId();
-        //ticket.setParkingSpot();
-/*
-        ticket.getVehicleRegNumber();
-        ticket.getPrice();
-        ticket.getInTime().getTime();
-        ticket.getOutTime().getTime();
-*/
-
-
-
-        System.out.println(inTime + " // "+outTime);
-
-
-       // ticketDAO.saveTicket(ticket);
-
-
-
-
-
-
-
-
-
-
-
-
 
         testParkingACar();
 
@@ -198,11 +158,7 @@ public class ParkingDataBaseIT {
                 ParkingService.getFidelity()
         );
 
-
-
         }
-
-
 
 
 }
