@@ -1,5 +1,8 @@
 com/parkit/parkingsystem/integration/service/DataBasePrepareService.class
-com/parkit/parkingsystem/integration/ParkingDataBaseIT.class
+com/parkit/parkingsystem/integration/ParkingDataBaseBikeIT.class
 com/parkit/parkingsystem/FareCalculatorServiceTest.class
 com/parkit/parkingsystem/ParkingServiceTest.class
+com/parkit/parkingsystem/integration/ParkingDataBaseExitingBikeIT.class
+com/parkit/parkingsystem/integration/ParkingDataBaseIT.class
+com/parkit/parkingsystem/ParkingServiceBikeTest.class
 com/parkit/parkingsystem/integration/config/DataBaseTestConfig.class

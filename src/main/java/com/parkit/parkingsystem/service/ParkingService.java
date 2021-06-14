@@ -166,7 +166,6 @@ public class ParkingService {
                     System.out.println("Ce véhicule est déjà venu");
 
                     try {
-
                         int id = ticketDAO.getTicket2(vehicleRegNumber).getId();
                         ticket.setId(id);
 

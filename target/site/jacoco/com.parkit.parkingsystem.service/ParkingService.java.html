@@ -166,62 +166,61 @@ public class ParkingService {
 <span class="nc" id="L166">                    System.out.println(&quot;Ce véhicule est déjà venu&quot;);</span>
 
                     try {
+<span class="nc" id="L169">                        int id = ticketDAO.getTicket2(vehicleRegNumber).getId();</span>
+<span class="nc" id="L170">                        ticket.setId(id);</span>
 
-<span class="nc" id="L170">                        int id = ticketDAO.getTicket2(vehicleRegNumber).getId();</span>
-<span class="nc" id="L171">                        ticket.setId(id);</span>
+<span class="nc" id="L172">                        ticket.setFidelity(true);</span>
+<span class="nc" id="L173">                        setFidelity(true);</span>
 
-<span class="nc" id="L173">                        ticket.setFidelity(true);</span>
-<span class="nc" id="L174">                        setFidelity(true);</span>
-
-<span class="nc" id="L176">                        Date outTime = new Date();</span>
-<span class="nc" id="L177">                        ticket.setOutTime(outTime);</span>
-<span class="nc" id="L178">                        fareCalculatorService.calculateFare(ticket);</span>
-<span class="nc bnc" id="L179" title="All 2 branches missed.">                        if(ticketDAO.updateTicket(ticket)) {</span>
-<span class="nc" id="L180">                            ParkingSpot parkingSpot = ticket.getParkingSpot();</span>
-<span class="nc" id="L181">                            parkingSpot.setAvailable(true);</span>
-<span class="nc" id="L182">                            parkingSpotDAO.updateParking(parkingSpot);</span>
-<span class="nc" id="L183">                            System.out.println(&quot;Please pay the parking fare:&quot; + ticket.getPrice());</span>
-<span class="nc" id="L184">                            System.out.println(&quot;Recorded out-time for vehicle number:&quot; + ticket.getVehicleRegNumber() + &quot; is:&quot; + outTime);</span>
-<span class="nc" id="L185">                            System.out.println();</span>
-<span class="nc" id="L186">                        }else{</span>
-<span class="nc" id="L187">                            System.out.println(&quot;Unable to update ticket information. Error occurred&quot;);</span>
+<span class="nc" id="L175">                        Date outTime = new Date();</span>
+<span class="nc" id="L176">                        ticket.setOutTime(outTime);</span>
+<span class="nc" id="L177">                        fareCalculatorService.calculateFare(ticket);</span>
+<span class="nc bnc" id="L178" title="All 2 branches missed.">                        if(ticketDAO.updateTicket(ticket)) {</span>
+<span class="nc" id="L179">                            ParkingSpot parkingSpot = ticket.getParkingSpot();</span>
+<span class="nc" id="L180">                            parkingSpot.setAvailable(true);</span>
+<span class="nc" id="L181">                            parkingSpotDAO.updateParking(parkingSpot);</span>
+<span class="nc" id="L182">                            System.out.println(&quot;Please pay the parking fare:&quot; + ticket.getPrice());</span>
+<span class="nc" id="L183">                            System.out.println(&quot;Recorded out-time for vehicle number:&quot; + ticket.getVehicleRegNumber() + &quot; is:&quot; + outTime);</span>
+<span class="nc" id="L184">                            System.out.println();</span>
+<span class="nc" id="L185">                        }else{</span>
+<span class="nc" id="L186">                            System.out.println(&quot;Unable to update ticket information. Error occurred&quot;);</span>
                         }
                     }
-<span class="nc" id="L190">                    catch (Exception e){</span>
-<span class="nc" id="L191">                        System.out.println(&quot;Exception : &quot;);</span>
-<span class="nc" id="L192">                        System.out.println(e);</span>
-<span class="nc" id="L193">                    }</span>
+<span class="nc" id="L189">                    catch (Exception e){</span>
+<span class="nc" id="L190">                        System.out.println(&quot;Exception : &quot;);</span>
+<span class="nc" id="L191">                        System.out.println(e);</span>
+<span class="nc" id="L192">                    }</span>
                 }
 
                 else{
-<span class="fc" id="L197">                    System.out.println(&quot;premiere venue du véhicule&quot;);</span>
+<span class="fc" id="L196">                    System.out.println(&quot;premiere venue du véhicule&quot;);</span>
 
-<span class="fc" id="L199">                    Date outTime = new Date();</span>
-<span class="fc" id="L200">                    ticket.setOutTime(outTime);</span>
-<span class="fc" id="L201">                    fareCalculatorService.calculateFare(ticket);</span>
-<span class="pc bpc" id="L202" title="1 of 2 branches missed.">                    if(ticketDAO.updateTicket(ticket)) {</span>
-<span class="fc" id="L203">                        ParkingSpot parkingSpot = ticket.getParkingSpot();</span>
-<span class="fc" id="L204">                        parkingSpot.setAvailable(true);</span>
-<span class="fc" id="L205">                        parkingSpotDAO.updateParking(parkingSpot);</span>
-<span class="fc" id="L206">                        System.out.println(&quot;Please pay the parking fare:&quot; + ticket.getPrice());</span>
-<span class="fc" id="L207">                        System.out.println(&quot;Recorded out-time for vehicle number:&quot; + ticket.getVehicleRegNumber() + &quot; is:&quot; + outTime);</span>
-<span class="fc" id="L208">                        System.out.println();</span>
-<span class="fc" id="L209">                    }else{</span>
-<span class="nc" id="L210">                        System.out.println(&quot;Unable to update ticket information. Error occurred&quot;);</span>
+<span class="fc" id="L198">                    Date outTime = new Date();</span>
+<span class="fc" id="L199">                    ticket.setOutTime(outTime);</span>
+<span class="fc" id="L200">                    fareCalculatorService.calculateFare(ticket);</span>
+<span class="pc bpc" id="L201" title="1 of 2 branches missed.">                    if(ticketDAO.updateTicket(ticket)) {</span>
+<span class="fc" id="L202">                        ParkingSpot parkingSpot = ticket.getParkingSpot();</span>
+<span class="fc" id="L203">                        parkingSpot.setAvailable(true);</span>
+<span class="fc" id="L204">                        parkingSpotDAO.updateParking(parkingSpot);</span>
+<span class="fc" id="L205">                        System.out.println(&quot;Please pay the parking fare:&quot; + ticket.getPrice());</span>
+<span class="fc" id="L206">                        System.out.println(&quot;Recorded out-time for vehicle number:&quot; + ticket.getVehicleRegNumber() + &quot; is:&quot; + outTime);</span>
+<span class="fc" id="L207">                        System.out.println();</span>
+<span class="fc" id="L208">                    }else{</span>
+<span class="nc" id="L209">                        System.out.println(&quot;Unable to update ticket information. Error occurred&quot;);</span>
                     }
                 }
 
-<span class="nc" id="L214">        }catch(Exception e){</span>
-<span class="nc" id="L215">            logger.error(&quot;Unable to process exiting vehicle&quot;,e);</span>
-<span class="fc" id="L216">        }</span>
-<span class="fc" id="L217">    }</span>
+<span class="nc" id="L213">        }catch(Exception e){</span>
+<span class="nc" id="L214">            logger.error(&quot;Unable to process exiting vehicle&quot;,e);</span>
+<span class="fc" id="L215">        }</span>
+<span class="fc" id="L216">    }</span>
 
     public static Boolean getFidelity() {
-<span class="nc" id="L220">        return fidelity;</span>
+<span class="nc" id="L219">        return fidelity;</span>
     }
 
     public void setFidelity(Boolean fidelity) {
-<span class="nc" id="L224">        this.fidelity = fidelity;</span>
-<span class="nc" id="L225">    }</span>
+<span class="nc" id="L223">        this.fidelity = fidelity;</span>
+<span class="nc" id="L224">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>
