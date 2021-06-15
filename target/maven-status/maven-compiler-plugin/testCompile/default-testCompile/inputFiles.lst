@@ -1,8 +1,7 @@
 /home/jgueguin/git/parkingsystem/src/test/java/com/parkit/parkingsystem/ParkingServiceTest.java
-/home/jgueguin/git/parkingsystem/src/test/java/com/parkit/parkingsystem/integration/ParkingDataBaseIT.java
 /home/jgueguin/git/parkingsystem/src/test/java/com/parkit/parkingsystem/integration/service/DataBasePrepareService.java
 /home/jgueguin/git/parkingsystem/src/test/java/com/parkit/parkingsystem/FareCalculatorServiceTest.java
-/home/jgueguin/git/parkingsystem/src/test/java/com/parkit/parkingsystem/ParkingServiceBikeTest.java
 /home/jgueguin/git/parkingsystem/src/test/java/com/parkit/parkingsystem/integration/config/DataBaseTestConfig.java
 /home/jgueguin/git/parkingsystem/src/test/java/com/parkit/parkingsystem/integration/ParkingDataBaseExitingBikeIT.java
 /home/jgueguin/git/parkingsystem/src/test/java/com/parkit/parkingsystem/integration/ParkingDataBaseBikeIT.java
+/home/jgueguin/git/parkingsystem/src/test/java/com/parkit/parkingsystem/integration/ParkingDataBaseCarIT.java

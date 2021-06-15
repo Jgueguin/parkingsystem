@@ -9,8 +9,17 @@ import com.parkit.parkingsystem.util.InputReaderUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.core.util.JsonUtils;
+import sun.util.calendar.BaseCalendar;
+import sun.util.calendar.CalendarUtils;
+// import sun.util.calendar.BaseCalendar;
+// import sun.util.calendar.CalendarUtils;
+
 
 import java.util.Date;
+import java.util.Locale;
+import java.util.TimeZone;
+
+import static java.util.Date.convertToAbbr;
 
 public class ParkingService {
 
@@ -160,9 +169,10 @@ public class ParkingService {
             Ticket ticket = ticketDAO.getTicket(vehicleRegNumber);
             Ticket ticket2 = ticketDAO.getTicket2(vehicleRegNumber);
 
-            if (ticket.getOutTime() != null // il y a un ticket déjà généré avec le véhicule
-                )
-                {
+
+            try {
+                if (ticket.getOutTime() != null // il y a un ticket déjà généré avec le véhicule
+                ) {
                     System.out.println("Ce véhicule est déjà venu");
 
                     try {
@@ -175,40 +185,44 @@ public class ParkingService {
                         Date outTime = new Date();
                         ticket.setOutTime(outTime);
                         fareCalculatorService.calculateFare(ticket);
-                        if(ticketDAO.updateTicket(ticket)) {
+                        if (ticketDAO.updateTicket(ticket)) {
                             ParkingSpot parkingSpot = ticket.getParkingSpot();
                             parkingSpot.setAvailable(true);
                             parkingSpotDAO.updateParking(parkingSpot);
                             System.out.println("Please pay the parking fare:" + ticket.getPrice());
                             System.out.println("Recorded out-time for vehicle number:" + ticket.getVehicleRegNumber() + " is:" + outTime);
                             System.out.println();
-                        }else{
+                        } else {
                             System.out.println("Unable to update ticket information. Error occurred");
                         }
-                    }
-                    catch (Exception e){
+                    } catch (Exception e) {
                         System.out.println("Exception : ");
                         System.out.println(e);
                     }
-                }
-
-                else{
+                } else {
                     System.out.println("premiere venue du véhicule");
 
                     Date outTime = new Date();
                     ticket.setOutTime(outTime);
                     fareCalculatorService.calculateFare(ticket);
-                    if(ticketDAO.updateTicket(ticket)) {
+                    if (ticketDAO.updateTicket(ticket)) {
                         ParkingSpot parkingSpot = ticket.getParkingSpot();
                         parkingSpot.setAvailable(true);
                         parkingSpotDAO.updateParking(parkingSpot);
                         System.out.println("Please pay the parking fare:" + ticket.getPrice());
                         System.out.println("Recorded out-time for vehicle number:" + ticket.getVehicleRegNumber() + " is:" + outTime);
                         System.out.println();
-                    }else{
+                    } else {
                         System.out.println("Unable to update ticket information. Error occurred");
                     }
                 }
+            }
+            catch (Exception e)
+            {
+                System.out.println("le ticket n'existe pas");
+            }
+
+
 
         }catch(Exception e){
             logger.error("Unable to process exiting vehicle",e);
@@ -222,4 +236,35 @@ public class ParkingService {
     public void setFidelity(Boolean fidelity) {
         this.fidelity = fidelity;
     }
+
+
+    @Override
+    public String toString() {
+        // "EEE MMM dd HH:mm:ss zzz yyyy";
+        BaseCalendar.Date date = normalize();
+        StringBuilder sb = new StringBuilder(28);
+        int index = date.getDayOfWeek();
+        if (index == BaseCalendar.SUNDAY) {
+            index = 8;
+        }
+        convertToAbbr(sb, wtb[index]).append(' ');                        // EEE
+        convertToAbbr(sb, wtb[date.getMonth() - 1 + 2 + 7]).append(' ');  // MMM
+        CalendarUtils.sprintf0d(sb, date.getDayOfMonth(), 2).append(' '); // dd
+
+        CalendarUtils.sprintf0d(sb, date.getHours(), 2).append(':');   // HH
+        CalendarUtils.sprintf0d(sb, date.getMinutes(), 2).append(':'); // mm
+        // CalendarUtils.sprintf0d(sb, date.getSeconds(), 2).append(' '); // ss
+        TimeZone zi = date.getZone();
+        if (zi != null) {
+            sb.append(zi.getDisplayName(date.isDaylightTime(), TimeZone.SHORT, Locale.US)); // zzz
+        } else {
+            sb.append("GMT");
+        }
+        sb.append(' ').append(date.getYear());  // yyyy
+        return sb.toString();
+    }
+
+
+
+
 }
