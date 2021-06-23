@@ -9,17 +9,14 @@ import com.parkit.parkingsystem.util.InputReaderUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.core.util.JsonUtils;
-import sun.util.calendar.BaseCalendar;
-import sun.util.calendar.CalendarUtils;
-// import sun.util.calendar.BaseCalendar;
-// import sun.util.calendar.CalendarUtils;
+
 
 
 import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
 
-import static java.util.Date.convertToAbbr;
+// import static java.util.Date.convertToAbbr;
 
 public class ParkingService {
 
@@ -237,7 +234,7 @@ public class ParkingService {
         this.fidelity = fidelity;
     }
 
-
+/*
     @Override
     public String toString() {
         // "EEE MMM dd HH:mm:ss zzz yyyy";
@@ -263,7 +260,7 @@ public class ParkingService {
         sb.append(' ').append(date.getYear());  // yyyy
         return sb.toString();
     }
-
+*/
 
 
 

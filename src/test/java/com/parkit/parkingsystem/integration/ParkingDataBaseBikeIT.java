@@ -81,7 +81,7 @@ public class ParkingDataBaseBikeIT {
     @Test
     public void testParkingLotExit(){
 
-        String pattern = "yyyy-MM-dd HH:mm";
+        String pattern = "yyyy-MM-dd HH:mm:ss.0";
         SimpleDateFormat inTime = new SimpleDateFormat(pattern);
         String inDate = inTime.format(new Date());
         Date outTime = new Date();
