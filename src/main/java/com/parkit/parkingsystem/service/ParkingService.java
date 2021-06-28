@@ -10,8 +10,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.core.util.JsonUtils;
 
-
-
 import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
@@ -28,7 +26,6 @@ public class ParkingService {
     private InputReaderUtil inputReaderUtil;
     private ParkingSpotDAO parkingSpotDAO;
     private  TicketDAO ticketDAO;
-
 
     public ParkingService(InputReaderUtil inputReaderUtil, ParkingSpotDAO parkingSpotDAO, TicketDAO ticketDAO){
         this.inputReaderUtil = inputReaderUtil;
@@ -164,7 +161,7 @@ public class ParkingService {
         try{
             String vehicleRegNumber = getVehichleRegNumber();
             Ticket ticket = ticketDAO.getTicket(vehicleRegNumber);
-            Ticket ticket2 = ticketDAO.getTicket2(vehicleRegNumber);
+            //Ticket ticket2 = ticketDAO.getTicket2(vehicleRegNumber);
 
 
             try {
@@ -216,6 +213,7 @@ public class ParkingService {
             }
             catch (Exception e)
             {
+                System.out.println(e);
                 System.out.println("le ticket n'existe pas");
             }
 

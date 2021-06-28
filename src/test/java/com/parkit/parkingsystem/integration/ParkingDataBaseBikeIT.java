@@ -106,10 +106,7 @@ public class ParkingDataBaseBikeIT {
                 ticketDAO.getTicket("ABCDEF").getInTime().toString()
                 );
 
-        assertEquals(
-                false,
-                ParkingService.getFidelity()
-        );
+        //assertEquals(                false,                ParkingService.getFidelity()        );
 
     }
 
