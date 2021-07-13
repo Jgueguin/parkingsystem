@@ -15,12 +15,16 @@ public class FareCalculatorService {
         Date inHour = ticket.getInTime();
         Date outHour = ticket.getOutTime();
 
-        //TODO: Some tests are failing here. Need to check if this logic is correct
+       // Gestion laps de temps
 
         double time = (outHour.getTime() - inHour.getTime()); // result in milliseconds
         time = time / (60*60*1000); // convert from milliseconds to hours
 
+        // Gestion 30 minutes offertes
+
         double duration = time < 0.5 ? time = 0 : time; // 30 mins free functionnality
+
+        // Gestion utilisateur récurrent
 
         double CAR_RATE = Fare.CAR_RATE_PER_HOUR;
         double BIKE_RATE = Fare.BIKE_RATE_PER_HOUR;
@@ -31,6 +35,8 @@ public class FareCalculatorService {
             BIKE_RATE= BIKE_RATE*(1.0-5.0/100);
             CAR_RATE=CAR_RATE*(1.0-(5.0/100));
         }
+
+        // partie commune
 
         switch (ticket.getParkingSpot().getParkingType()){
             case CAR: {

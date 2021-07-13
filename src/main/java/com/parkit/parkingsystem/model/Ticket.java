@@ -2,7 +2,6 @@ package com.parkit.parkingsystem.model;
 
 import java.util.Calendar;
 import java.util.Date;
-
 public class Ticket {
     private int id;
     private ParkingSpot parkingSpot;
@@ -12,8 +11,7 @@ public class Ticket {
     private Date outTime;
 
     // Recurrent User
-    private  Boolean fidelity = false;
-
+    private Boolean fidelity = false;
 
     public int getId() {
         return id;
@@ -67,9 +65,7 @@ public class Ticket {
     public Boolean getFidelity() {
         return fidelity;
     }
-
     public void setFidelity(Boolean fidelity) {
         this.fidelity = fidelity;
     }
-
 }
