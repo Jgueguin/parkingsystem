@@ -118,6 +118,11 @@ public class ParkingDataBaseBikeIT {
         testParkingABike();
         parkingService.processExitingVehicle();
 
+        assertEquals(
+                false,
+                ParkingService.getFidelity()
+        );
+
         testParkingABike();
         parkingService.processExitingVehicle();
 
