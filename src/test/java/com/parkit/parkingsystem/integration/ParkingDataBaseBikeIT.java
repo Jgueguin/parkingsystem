@@ -105,9 +105,6 @@ public class ParkingDataBaseBikeIT {
                 inDate.toString(),
                 ticketDAO.getTicket("ABCDEF").getInTime().toString()
                 );
-
-        //assertEquals(                false,                ParkingService.getFidelity()        );
-
     }
 
     @Test
@@ -115,10 +112,8 @@ public class ParkingDataBaseBikeIT {
 
         ParkingService parkingService = new ParkingService(inputReaderUtil, parkingSpotDAO, ticketDAO);
 
-        System.out.println("");
         System.out.println("Test Recurent User");
         System.out.println("");
-
 
         testParkingABike();
         parkingService.processExitingVehicle();
@@ -136,6 +131,5 @@ public class ParkingDataBaseBikeIT {
         );
 
         }
-
 
 }
